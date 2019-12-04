@@ -16,8 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SliderActivity">
 
+        <activity android:name=".SliderActivity">
+        </activity>
+
+        <activity android:name=".PlayerActivity">
         </activity>
     </application>
 
