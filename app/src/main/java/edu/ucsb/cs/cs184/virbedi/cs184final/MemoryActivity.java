@@ -133,33 +133,42 @@ public class MemoryActivity extends AppCompatActivity {
                                 endTime = System.currentTimeMillis();
                                 Log.i("TIME2", String.valueOf(endTime));
                                 seconds = (endTime - startTime) / 1000;
+                                float score = calcScore(seconds);
                                 Log.i("TIME", String.valueOf(seconds));
-                                message = "Your took " + seconds + " seconds. Pass the device to the next player";
+                                if(playNumber == PlayerList.size()-1)
+                                    message = "Your took " + seconds + " seconds. Your score is "+score+". All players have played!";
+                                else
+                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Pass the device to the next player";
                                 builder.setMessage(message);
 
+                            if(playNumber >= PlayerList.size())
+                                lastPlayer = true;
 
-                        builder.setPositiveButton("Start", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                if (lastPlayer) {
-                                    //Add code to go to next game
-                                } else {
+                            builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    if (lastPlayer) {
+                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                                        intent.putExtra("Time",seconds);
+                                        startActivity(intent);
 
-                                    playNumber += 1;
-                                    Log.i("playNumber",String.valueOf(playNumber));
-//                                    playerNumber += 1;
-                                    for(int it=0;it<12;it++)
-                                    {
-                                        buttons.get(it).setText("");
-                                        buttons.get(it).setBackgroundResource(ic_info);
-                                        buttons.get(it).setClickable(true);
-                                        resetVar();
-                                        Collections.shuffle(myList);
-                                        playMemoryGame();
+                                    } else {
+
+                                        playNumber += 1;
+                                        Log.i("playNumber",String.valueOf(playNumber));
+
+                                        for(int it=0;it<12;it++)
+                                        {
+                                            buttons.get(it).setText("");
+                                            buttons.get(it).setBackgroundResource(ic_info);
+                                            buttons.get(it).setClickable(true);
+                                            resetVar();
+                                            Collections.shuffle(myList);
+                                            playMemoryGame();
+                                        }
                                     }
-                                }
 
-                            }
-                        });
+                                }
+                            });
                                 AlertDialog alert = builder.create();
                                 alert.show();
 //                        Intent intent = new Intent(getApplicationContext(),Result.class);
@@ -187,6 +196,12 @@ public class MemoryActivity extends AppCompatActivity {
              seconds=0;
         }
 
+        public float calcScore(long seconds){
+
+            float score = (200 - seconds)/2;
+            return score;
+        }
+
         public void Populate(){
             Player1 a = new Player1();
             a.name = "Vir";
@@ -198,15 +213,15 @@ public class MemoryActivity extends AppCompatActivity {
             b.score = 0;
             PlayerList.add(b);
 
-            Player1 c = new Player1();
-            c.name = "Alex";
-            c.score = 0;
-            PlayerList.add(c);
-
-            Player1 d = new Player1();
-            d.name = "Joe";
-            d.score = 0;
-            PlayerList.add(d);
+//            Player1 c = new Player1();
+//            c.name = "Alex";
+//            c.score = 0;
+//            PlayerList.add(c);
+//
+//            Player1 d = new Player1();
+//            d.name = "Joe";
+//            d.score = 0;
+//            PlayerList.add(d);
 
         }
 

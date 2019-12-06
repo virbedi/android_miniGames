@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="160dp"
         android:layout_marginEnd="100dp"
         android:text="Ice-Breaker Games"
         android:textSize="25dp"
