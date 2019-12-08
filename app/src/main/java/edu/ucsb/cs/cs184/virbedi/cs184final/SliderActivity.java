@@ -1,13 +1,16 @@
 package edu.ucsb.cs.cs184.virbedi.cs184final;
 
 import android.content.DialogInterface;
+
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
@@ -50,7 +53,9 @@ public class SliderActivity extends AppCompatActivity {
         Countdown =findViewById(R.id.timer);
         GoButton = findViewById(R.id.button);
         bullsEyeBar = findViewById(R.id.seekBar);
+
         EndButton = findViewById(R.id.endButton);
+
         builder = new AlertDialog.Builder(this);
 
         //Set initial text elements
@@ -130,6 +135,25 @@ public class SliderActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if(lastPlayer){
+                    //Add code to go to next game
+                }
+                else {
+                    playerNumber += 1;
+                    initial();
+                }
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(lastPlayer){
                     //Add code to go to memory game and pass information
                 }
                 else {
@@ -186,5 +210,44 @@ public class SliderActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),ScoreActivity.class);
 
         startActivity(intent);
+
+    }
+
+    public void StartTimer(){
+
+        new CountDownTimer(10000, 1000){
+            int counter = 10;
+            public void onTick(long millisUntilFinished){
+                String display = "Time remaining: " + counter;
+                Countdown.setText(display);
+                counter--;
+            }
+            public void onFinish(){
+                PlaySliderGame();
+            }
+        }.start();
+    }
+
+    public void Populate(){
+        Player a = new Player();
+        a.name = "Vir";
+        a.score = 0;
+        PlayerList.add(a);
+
+        Player b = new Player();
+        b.name = "Megh";
+        b.score = 0;
+        PlayerList.add(b);
+
+        Player c = new Player();
+        c.name = "Alex";
+        c.score = 0;
+        PlayerList.add(c);
+
+        Player d = new Player();
+        d.name = "Joe";
+        d.score = 0;
+        PlayerList.add(d);
+
     }
 }

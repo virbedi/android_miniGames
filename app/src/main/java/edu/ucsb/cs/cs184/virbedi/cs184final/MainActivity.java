@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button;
     Button scoreButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(),MemoryActivity.class);
-
-
+                Intent intent = new Intent(getApplicationContext(),PlayerActivity.class);
                 startActivity(intent);
             }
         });
+
+
 
         scoreButton = (Button) findViewById(R.id.scoreButton);
         scoreButton.setOnClickListener(new View.OnClickListener() {
@@ -38,4 +39,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
