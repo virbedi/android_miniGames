@@ -39,9 +39,12 @@ public class MemoryActivity extends AppCompatActivity {
     long endTime;
     long seconds;
 
-    Vector<Player1> PlayerList = new Vector<>();
+//    Vector<Player1> PlayerList = new Vector<>();
+
+    ArrayList<PlayerActivity.globalPlayer> playerList = new ArrayList<>();
     boolean lastPlayer = false;
     int playNumber=0;
+    int Round;
 
     AlertDialog.Builder builder;
 
@@ -66,7 +69,12 @@ public class MemoryActivity extends AppCompatActivity {
         button11 = (Button) findViewById(R.id.button11);
         button12 = (Button) findViewById(R.id.button12);
 
-        Populate();
+        playerList = (ArrayList<PlayerActivity.globalPlayer>)getIntent().getSerializableExtra("playerList");
+        Round = getIntent().getIntExtra("Round",0);
+        Round++;
+        String s = "Round: " + Round;
+        textView3.setText(s);
+//        Populate();
 
 
 
@@ -77,7 +85,7 @@ public class MemoryActivity extends AppCompatActivity {
 
         public void playMemoryGame() {
 
-            textView.setText(PlayerList.get(playNumber).name);
+            textView.setText(playerList.get(playNumber).name);
             final ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(fire, rocket, power, spider, star, thunder, fire, rocket, power, spider, star, thunder));
 
             final ArrayList<Button> buttons = new ArrayList<Button>(Arrays.asList(button101, button102, button3, button4, button5, button6,
@@ -135,20 +143,20 @@ public class MemoryActivity extends AppCompatActivity {
                                 seconds = (endTime - startTime) / 1000;
                                 float score = calcScore(seconds);
                                 Log.i("TIME", String.valueOf(seconds));
-                                if(playNumber == PlayerList.size()-1)
+                                if(playNumber == playerList.size()-1)
                                     message = "Your took " + seconds + " seconds. Your score is "+score+". All players have played!";
                                 else
                                     message = "Your took " + seconds + " seconds. Your score is "+score+". Pass the device to the next player";
                                 builder.setMessage(message);
 
-                            if(playNumber >= PlayerList.size())
+                            if(playNumber >= playerList.size())
                                 lastPlayer = true;
 
                             builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     if (lastPlayer) {
                                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//                                        intent.putExtra("Time",seconds);
+                                        intent.putExtra("Player",playerList);
                                         startActivity(intent);
 
                                     } else {
@@ -202,16 +210,16 @@ public class MemoryActivity extends AppCompatActivity {
             return score;
         }
 
-        public void Populate(){
-            Player1 a = new Player1();
-            a.name = "Vir";
-            a.score = 0;
-            PlayerList.add(a);
-
-            Player1 b = new Player1();
-            b.name = "Megh";
-            b.score = 0;
-            PlayerList.add(b);
+//        public void Populate(){
+//            Player1 a = new Player1();
+//            a.name = "Vir";
+//            a.score = 0;
+//            playerList.add(a);
+//
+//            Player1 b = new Player1();
+//            b.name = "Megh";
+//            b.score = 0;
+//            playerList.add(b);
 
 //            Player1 c = new Player1();
 //            c.name = "Alex";
@@ -223,7 +231,7 @@ public class MemoryActivity extends AppCompatActivity {
 //            d.score = 0;
 //            PlayerList.add(d);
 
-        }
+//        }
 
 
 }
