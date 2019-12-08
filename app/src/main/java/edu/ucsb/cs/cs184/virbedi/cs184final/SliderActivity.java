@@ -149,23 +149,6 @@ public class SliderActivity extends AppCompatActivity {
         alert.show();
 
 
-        builder.setMessage(message);
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                if(lastPlayer){
-                    //Add code to go to memory game and pass information
-                }
-                else {
-                    playerNumber += 1;
-                    initial();
-                }
-
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     public void StartTimer(){
@@ -213,41 +196,5 @@ public class SliderActivity extends AppCompatActivity {
 
     }
 
-    public void StartTimer(){
 
-        new CountDownTimer(10000, 1000){
-            int counter = 10;
-            public void onTick(long millisUntilFinished){
-                String display = "Time remaining: " + counter;
-                Countdown.setText(display);
-                counter--;
-            }
-            public void onFinish(){
-                PlaySliderGame();
-            }
-        }.start();
-    }
-
-    public void Populate(){
-        Player a = new Player();
-        a.name = "Vir";
-        a.score = 0;
-        PlayerList.add(a);
-
-        Player b = new Player();
-        b.name = "Megh";
-        b.score = 0;
-        PlayerList.add(b);
-
-        Player c = new Player();
-        c.name = "Alex";
-        c.score = 0;
-        PlayerList.add(c);
-
-        Player d = new Player();
-        d.name = "Joe";
-        d.score = 0;
-        PlayerList.add(d);
-
-    }
 }
