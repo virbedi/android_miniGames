@@ -1,6 +1,9 @@
 package edu.ucsb.cs.cs184.virbedi.cs184final;
 
 import android.content.DialogInterface;
+
+import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -10,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.Random;
 import java.util.Vector;
 
@@ -27,6 +29,7 @@ public class SliderActivity extends AppCompatActivity {
     TextView NameDisplay;
     TextView RoundDisplay;
     Button GoButton;
+    Button EndButton;
 
     int playerNumber = 0;
     int targetValue;
@@ -43,12 +46,16 @@ public class SliderActivity extends AppCompatActivity {
 
         //Declare display elements
         TargetValueDisplay = findViewById(R.id.TargetValue);
+
         NameDisplay = findViewById(R.id.NameDisplay);
         RoundDisplay = findViewById(R.id.RoundDisplay);
         TargetValueDisplay = findViewById(R.id.TargetValue);
         Countdown =findViewById(R.id.timer);
         GoButton = findViewById(R.id.button);
         bullsEyeBar = findViewById(R.id.seekBar);
+
+        EndButton = findViewById(R.id.endButton);
+
         builder = new AlertDialog.Builder(this);
 
         //Set initial text elements
@@ -73,6 +80,12 @@ public class SliderActivity extends AppCompatActivity {
             }
         });
 
+        EndButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                EndGame();
+            }
+        });
 
 
     }
@@ -134,6 +147,70 @@ public class SliderActivity extends AppCompatActivity {
 
         AlertDialog alert = builder.create();
         alert.show();
+
+
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if(lastPlayer){
+                    //Add code to go to memory game and pass information
+                }
+                else {
+                    playerNumber += 1;
+                    initial();
+                }
+
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void StartTimer(){
+
+        new CountDownTimer(10000, 1000){
+            int counter = 10;
+            public void onTick(long millisUntilFinished){
+                String display = "Time remaining: " + counter;
+                Countdown.setText(display);
+                counter--;
+            }
+            public void onFinish(){
+                PlaySliderGame();
+            }
+        }.start();
+    }
+
+    public void Populate(){
+        Player a = new Player();
+        a.name = "Vir";
+        a.score = 0;
+        PlayerList.add(a);
+
+        Player b = new Player();
+        b.name = "Megh";
+        b.score = 0;
+        PlayerList.add(b);
+
+        Player c = new Player();
+        c.name = "Alex";
+        c.score = 0;
+        PlayerList.add(c);
+
+        Player d = new Player();
+        d.name = "Joe";
+        d.score = 0;
+        PlayerList.add(d);
+
+    }
+
+    public void EndGame(){
+        Intent intent = new Intent(getApplicationContext(),ScoreActivity.class);
+
+        startActivity(intent);
+
     }
 
     public void StartTimer(){

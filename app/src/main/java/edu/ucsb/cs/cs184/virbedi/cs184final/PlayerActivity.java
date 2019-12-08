@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs184.virbedi.cs184final;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -51,6 +52,7 @@ public class PlayerActivity extends AppCompatActivity {
     String name;
     Button playButton;
     int Round=0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +126,9 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+ 
     }
 
     public void setName(int counter, String name){
