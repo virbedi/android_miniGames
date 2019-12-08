@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs184.virbedi.cs184final;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -25,6 +26,7 @@ public class SliderActivity extends AppCompatActivity {
     TextView NameDisplay;
     TextView RoundDisplay;
     Button GoButton;
+    Button EndButton;
 
     int playerNumber = 0;
     int targetValue;
@@ -48,6 +50,7 @@ public class SliderActivity extends AppCompatActivity {
         Countdown =findViewById(R.id.timer);
         GoButton = findViewById(R.id.button);
         bullsEyeBar = findViewById(R.id.seekBar);
+        EndButton = findViewById(R.id.endButton);
         builder = new AlertDialog.Builder(this);
 
         //Set initial text elements
@@ -72,6 +75,12 @@ public class SliderActivity extends AppCompatActivity {
             }
         });
 
+        EndButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                EndGame();
+            }
+        });
 
 
     }
@@ -121,7 +130,7 @@ public class SliderActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if(lastPlayer){
-                    //Add code to go to next game
+                    //Add code to go to memory game and pass information
                 }
                 else {
                     playerNumber += 1;
@@ -171,5 +180,11 @@ public class SliderActivity extends AppCompatActivity {
         d.score = 0;
         PlayerList.add(d);
 
+    }
+
+    public void EndGame(){
+        Intent intent = new Intent(getApplicationContext(),ScoreActivity.class);
+
+        startActivity(intent);
     }
 }
