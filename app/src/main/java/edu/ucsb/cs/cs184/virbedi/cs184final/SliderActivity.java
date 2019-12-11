@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
@@ -30,10 +32,10 @@ public class SliderActivity extends AppCompatActivity {
     TextView RoundDisplay;
     Button GoButton;
     Button EndButton;
-
+    int Round;
     int playerNumber = 0;
     int targetValue;
-    Vector<Player> PlayerList = new Vector<>();
+    ArrayList<PlayerActivity.globalPlayer> playerList = new ArrayList<>();
     boolean lastPlayer = false;
 
     AlertDialog.Builder builder;
@@ -70,7 +72,12 @@ public class SliderActivity extends AppCompatActivity {
         bullsEyeBar.setMax(100);
         bullsEyeBar.setProgress(50);
 
-        Populate();
+        //Populate(); Test with fake players
+        playerList = (ArrayList<PlayerActivity.globalPlayer>)getIntent().getSerializableExtra("playerList");
+        Round = getIntent().getIntExtra("Round",0);
+        Round++;
+        String roundString = "Round: " + Round;
+        RoundDisplay.setText(roundString);
         initial();
 
         GoButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +97,7 @@ public class SliderActivity extends AppCompatActivity {
 
     }
     public void initial(){
-        NameDisplay.setText(PlayerList.get(playerNumber).name);
+        NameDisplay.setText(playerList.get(playerNumber).name);
         SetTarget();
         //Add code for startCountdown
         StartTimer();
@@ -121,10 +128,12 @@ public class SliderActivity extends AppCompatActivity {
         bullsEyeBar.setProgress(50);
         SetTarget();
 
-        if(playerNumber<PlayerList.size()){
+        playerList.get(playerNumber).score += score;
+
+        if(playerNumber<playerList.size()){
             lastPlayer = false;
             message = "Your score is "+ score +". Press Yes when "
-                    +PlayerList.get(playerNumber+1).name + " is ready";
+                    +playerList.get(playerNumber+1).name + " is ready";
         }else {
             message = "Your score is "+ score + "Press Yes to go to the next round";
             lastPlayer = true;
@@ -136,6 +145,11 @@ public class SliderActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 if(lastPlayer){
                     //Add code to go to next game
+
+                    Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
+                    intent.putExtra("playerList",playerList);
+                    intent.putExtra("Round",Round);
+                    startActivity(intent);
                 }
                 else {
                     playerNumber += 1;
@@ -166,32 +180,33 @@ public class SliderActivity extends AppCompatActivity {
         }.start();
     }
 
-    public void Populate(){
-        Player a = new Player();
-        a.name = "Vir";
-        a.score = 0;
-        PlayerList.add(a);
-
-        Player b = new Player();
-        b.name = "Megh";
-        b.score = 0;
-        PlayerList.add(b);
-
-        Player c = new Player();
-        c.name = "Alex";
-        c.score = 0;
-        PlayerList.add(c);
-
-        Player d = new Player();
-        d.name = "Joe";
-        d.score = 0;
-        PlayerList.add(d);
-
-    }
+//    public void Populate(){
+//        Player a = new Player();
+//        a.name = "Vir";
+//        a.score = 0;
+//        playerList.add(a);
+//
+//        Player b = new Player();
+//        b.name = "Megh";
+//        b.score = 0;
+//        playerList.add(b);
+//
+//        Player c = new Player();
+//        c.name = "Alex";
+//        c.score = 0;
+//        playerList.add(c);
+//
+//        Player d = new Player();
+//        d.name = "Joe";
+//        d.score = 0;
+//        playerList.add(d);
+//
+//    }
 
     public void EndGame(){
         Intent intent = new Intent(getApplicationContext(),ScoreActivity.class);
-
+        intent.putExtra("playerList",playerList);
+        intent.putExtra("Round",Round);
         startActivity(intent);
 
     }

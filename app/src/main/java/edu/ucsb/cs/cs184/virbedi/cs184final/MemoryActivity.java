@@ -20,15 +20,10 @@ import java.util.Vector;
 //New branch push
 //Second push
 
-class Player1{
-    String name = "";
-    int score = 0;
-}
-
 public class MemoryActivity extends AppCompatActivity {
 
     Button button101, button102, button3, button4, button5, button6, button7, button8, button9, button10,
-            button11, button12;
+            button11, button12, button17;
     TextView textView, textView3;
     int counter = 0;
     int clicked = 0;
@@ -68,13 +63,25 @@ public class MemoryActivity extends AppCompatActivity {
         button10 = (Button) findViewById(R.id.button10);
         button11 = (Button) findViewById(R.id.button11);
         button12 = (Button) findViewById(R.id.button12);
-
+        button17 = (Button) findViewById(R.id.button17);
+        playNumber=0;
         playerList = (ArrayList<PlayerActivity.globalPlayer>)getIntent().getSerializableExtra("playerList");
         Round = getIntent().getIntExtra("Round",0);
         Round++;
         String s = "Round: " + Round;
         textView3.setText(s);
 //        Populate();
+
+        button17.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Sending data to scoreboard screen
+                Intent intent = new Intent(getApplicationContext(),ScoreActivity.class);
+                intent.putExtra("playerList",playerList);
+                intent.putExtra("Round",Round);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -144,19 +151,20 @@ public class MemoryActivity extends AppCompatActivity {
                                 float score = calcScore(seconds);
                                 Log.i("TIME", String.valueOf(seconds));
                                 if(playNumber == playerList.size()-1)
-                                    message = "Your took " + seconds + " seconds. Your score is "+score+". All players have played!";
+                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Going to the next round!";
                                 else
-                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Pass the device to the next player";
+                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Pass the device to " + playerList.get(playNumber+1).name;
                                 builder.setMessage(message);
 
-                            if(playNumber >= playerList.size())
+                            if(playNumber == playerList.size()-1)
                                 lastPlayer = true;
 
                             builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     if (lastPlayer) {
-                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                        intent.putExtra("Player",playerList);
+                                        Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
+                                        intent.putExtra("playerList",playerList);
+                                        intent.putExtra("Round",Round);
                                         startActivity(intent);
 
                                     } else {
