@@ -130,12 +130,12 @@ public class SliderActivity extends AppCompatActivity {
 
         playerList.get(playerNumber).score += score;
 
-        if(playerNumber<playerList.size()){
+        if(playerNumber<playerList.size()-1){
             lastPlayer = false;
             message = "Your score is "+ score +". Press Yes when "
                     +playerList.get(playerNumber+1).name + " is ready";
         }else {
-            message = "Your score is "+ score + "Press Yes to go to the next round";
+            message = "Your score is "+ score + " Press Yes to go to the next round";
             lastPlayer = true;
         }
 
