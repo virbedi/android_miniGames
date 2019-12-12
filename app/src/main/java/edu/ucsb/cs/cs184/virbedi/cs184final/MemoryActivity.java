@@ -90,133 +90,137 @@ public class MemoryActivity extends AppCompatActivity {
 
     }
 
-        public void playMemoryGame() {
+    public void playMemoryGame() {
 
-            textView.setText(playerList.get(playNumber).name);
-            final ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(fire, rocket, power, spider, star, thunder, fire, rocket, power, spider, star, thunder));
+        textView.setText(playerList.get(playNumber).name);
+        final ArrayList<Integer> myList = new ArrayList<>(Arrays.asList(fire, rocket, power, spider, star, thunder, fire, rocket, power, spider, star, thunder));
 
-            final ArrayList<Button> buttons = new ArrayList<Button>(Arrays.asList(button101, button102, button3, button4, button5, button6,
-                    button7, button8, button9, button10, button11, button12));
+        final ArrayList<Button> buttons = new ArrayList<Button>(Arrays.asList(button101, button102, button3, button4, button5, button6,
+                button7, button8, button9, button10, button11, button12));
 
-            final int cardBack = R.drawable.ic_info;
-            Collections.shuffle(myList);
-
-
-                for (int i = 0; i < 12; i++) {
-
-                    buttons.get(i).setText("cardBack");
-                    buttons.get(i).setTextSize(0.0f);
-                    final int j = i;
-                    buttons.get(i).setOnClickListener(new View.OnClickListener() {
+        final int cardBack = R.drawable.ic_info;
+        Collections.shuffle(myList);
 
 
-                        @Override
-                        public void onClick(View v) {
-                            if (clicked == 0)
-                                startTime = System.currentTimeMillis();
-                            Log.i("TIME1", String.valueOf(startTime));
-                            if (buttons.get(j).getText() == "cardBack" && !turnOver) {
-                                buttons.get(j).setBackgroundResource(myList.get(j));
-                                buttons.get(j).setText(myList.get(j));
-                                if (counter == 0)
-                                    lastClicked = j;
-                                clicked++;
-                                counter++;
-                            } else if (buttons.get(j).getText() != "cardBack") {
-                                buttons.get(j).setBackgroundResource(cardBack);
-                                buttons.get(j).setText("cardBack");
+        for (int i = 0; i < 12; i++) {
+
+            buttons.get(i).setText("cardBack");
+            buttons.get(i).setTextSize(0.0f);
+            final int j = i;
+            buttons.get(i).setOnClickListener(new View.OnClickListener() {
+
+
+                @Override
+                public void onClick(View v) {
+                    if (clicked == 0)
+                        startTime = System.currentTimeMillis();
+                    Log.i("TIME1", String.valueOf(startTime));
+                    if (buttons.get(j).getText() == "cardBack" && !turnOver) {
+                        buttons.get(j).setBackgroundResource(myList.get(j));
+                        buttons.get(j).setText(myList.get(j));
+                        if (counter == 0)
+                            lastClicked = j;
+                        clicked++;
+                        counter++;
+                    } else if (buttons.get(j).getText() != "cardBack") {
+                        buttons.get(j).setBackgroundResource(cardBack);
+                        buttons.get(j).setText("cardBack");
 //                        clicked--;
-                                counter--;
-                            }
+                        counter--;
+                    }
 
 
-                            if (counter == 2) {
-                                turnOver = true;
-                                if (buttons.get(j).getText() == buttons.get(lastClicked).getText()) {
-                                    buttons.get(j).setClickable(false);
-                                    buttons.get(lastClicked).setClickable(false);
-                                    turnOver = false;
-                                    counter = 0;
-                                    matched++;
-                                }
-                            } else if (counter == 0) {
-                                turnOver = false;
-                            }
+                    if (counter == 2) {
+                        turnOver = true;
+                        if (buttons.get(j).getText() == buttons.get(lastClicked).getText()) {
+                            buttons.get(j).setClickable(false);
+                            buttons.get(lastClicked).setClickable(false);
+                            turnOver = false;
+                            counter = 0;
+                            matched++;
+                        }
+                    } else if (counter == 0) {
+                        turnOver = false;
+                    }
 
-                            if (matched == 1) {
-                                String message = "";
-                                endTime = System.currentTimeMillis();
-                                Log.i("TIME2", String.valueOf(endTime));
-                                seconds = (endTime - startTime) / 1000;
-                                float score = calcScore(seconds);
-                                Log.i("TIME", String.valueOf(seconds));
-                                if(playNumber == playerList.size()-1)
-                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Going to the next round!";
-                                else
-                                    message = "Your took " + seconds + " seconds. Your score is "+score+". Pass the device to " + playerList.get(playNumber+1).name;
-                                builder.setMessage(message);
+                    if (matched == 1) {
+                        String message = "";
+                        endTime = System.currentTimeMillis();
+                        Log.i("TIME2", String.valueOf(endTime));
+                        seconds = (endTime - startTime) / 1000;
+                        int score = (int) calcScore(seconds);
+                        Log.i("TIME", String.valueOf(seconds));
+                        if(playNumber == playerList.size()-1) {
+                            message = "Your took " + seconds + " seconds. Your score is " + score + ". Going to the next round!";
+                            playerList.get(playNumber).score = score;
+                        }
+                        else {
+                            message = "Your took " + seconds + " seconds. Your score is " + score + ". Pass the device to " + playerList.get(playNumber + 1).name;
+                            playerList.get(playNumber).score = score;
+                        }
+                        builder.setMessage(message);
 
-                            if(playNumber == playerList.size()-1)
-                                lastPlayer = true;
+                        if(playNumber == playerList.size()-1)
+                            lastPlayer = true;
 
-                            builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    if (lastPlayer) {
-                                        Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
-                                        intent.putExtra("playerList",playerList);
-                                        intent.putExtra("Round",Round);
-                                        startActivity(intent);
+                        builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (lastPlayer) {
+                                    Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
+                                    intent.putExtra("playerList",playerList);
+                                    intent.putExtra("Round",Round);
+                                    startActivity(intent);
 
-                                    } else {
+                                } else {
 
-                                        playNumber += 1;
-                                        Log.i("playNumber",String.valueOf(playNumber));
+                                    playNumber += 1;
+                                    Log.i("playNumber",String.valueOf(playNumber));
 
-                                        for(int it=0;it<12;it++)
-                                        {
-                                            buttons.get(it).setText("");
-                                            buttons.get(it).setBackgroundResource(ic_info);
-                                            buttons.get(it).setClickable(true);
-                                            resetVar();
-                                            Collections.shuffle(myList);
-                                            playMemoryGame();
-                                        }
+                                    for(int it=0;it<12;it++)
+                                    {
+                                        buttons.get(it).setText("");
+                                        buttons.get(it).setBackgroundResource(ic_info);
+                                        buttons.get(it).setClickable(true);
+                                        resetVar();
+                                        Collections.shuffle(myList);
+                                        playMemoryGame();
                                     }
-
                                 }
-                            });
-                                AlertDialog alert = builder.create();
-                                alert.show();
+
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
 //                        Intent intent = new Intent(getApplicationContext(),Result.class);
 //                        intent.putExtra("Time",seconds);
 //                        startActivity(intent);
-                            }
+                    }
 
-                        }
-
-                    });
                 }
 
-
+            });
         }
 
-        public void resetVar(){
 
-             counter = 0;
-             clicked = 0;
-             matched = 0;
-             lastClicked = -1;
-             turnOver = false;
-             startTime=0;
-             endTime=0;
-             seconds=0;
-        }
+    }
 
-        public float calcScore(long seconds){
+    public void resetVar(){
 
-            float score = (200 - seconds)/2;
-            return score;
-        }
+        counter = 0;
+        clicked = 0;
+        matched = 0;
+        lastClicked = -1;
+        turnOver = false;
+        startTime=0;
+        endTime=0;
+        seconds=0;
+    }
+
+    public float calcScore(long seconds){
+
+        float score = (200 - seconds)/2;
+        return score;
+    }
 
 //        public void Populate(){
 //            Player1 a = new Player1();

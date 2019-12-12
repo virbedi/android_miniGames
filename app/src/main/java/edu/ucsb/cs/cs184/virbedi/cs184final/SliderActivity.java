@@ -135,7 +135,7 @@ public class SliderActivity extends AppCompatActivity {
             message = "Your score is "+ score +". Press Yes when "
                     +playerList.get(playerNumber+1).name + " is ready";
         }else {
-            message = "Your score is "+ score + " Press Yes to go to the next round";
+            message = "Your score is "+ score + ". Press Yes to go to the next round";
             lastPlayer = true;
         }
 
@@ -146,7 +146,7 @@ public class SliderActivity extends AppCompatActivity {
                 if(lastPlayer){
                     //Add code to go to next game
 
-                    Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),MemoryActivity.class);
                     intent.putExtra("playerList",playerList);
                     intent.putExtra("Round",Round);
                     startActivity(intent);

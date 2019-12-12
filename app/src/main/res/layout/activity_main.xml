@@ -12,7 +12,7 @@
         android:layout_height="54dp"
         android:layout_marginTop="160dp"
         android:layout_marginEnd="100dp"
-        android:text="Ice-Breaker Games"
+        android:text="Kill Time"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
