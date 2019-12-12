@@ -143,7 +143,7 @@ public class MemoryActivity extends AppCompatActivity {
                         turnOver = false;
                     }
 
-                    if (matched == 1) {
+                    if (matched == 6) {
                         String message = "";
                         endTime = System.currentTimeMillis();
                         Log.i("TIME2", String.valueOf(endTime));

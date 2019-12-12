@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button button;
+    Button button, buttonTwo;
     Button scoreButton;
 
     @Override
@@ -23,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getApplicationContext(),PlayerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        buttonTwo = (Button) findViewById(R.id.button2);
+        buttonTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(),aboutActivity.class);
                 startActivity(intent);
             }
         });

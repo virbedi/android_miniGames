@@ -40,6 +40,8 @@ public class SliderActivity extends AppCompatActivity {
 
     AlertDialog.Builder builder;
 
+    CountDownTimer timer;
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class SliderActivity extends AppCompatActivity {
         GoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
+                timer.cancel();
                 PlaySliderGame();
             }
         });
@@ -167,7 +170,7 @@ public class SliderActivity extends AppCompatActivity {
 
     public void StartTimer(){
 
-        new CountDownTimer(10000, 1000){
+        timer = new CountDownTimer(10000, 1000){
             int counter = 10;
             public void onTick(long millisUntilFinished){
                 String display = "Time remaining: " + counter;
