@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        scoreButton = (Button) findViewById(R.id.scoreButton);
-        scoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
-                startActivity(intent);
-            }
-        });
+//        scoreButton = (Button) findViewById(R.id.scoreButton);
+//        scoreButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(),SliderActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

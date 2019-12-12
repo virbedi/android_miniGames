@@ -97,30 +97,30 @@ public class ScoreActivity extends AppCompatActivity {
         P1Name.setText(playerList.get(0).name);
         P1Score.setText(playerList.get(0).score);
 
-//        for (int i =0; i<playerList.size(); i++){
-//            switch (i){
-//                case 0: P1Name.setText(playerList.get(i).name);
-//                        P1Score.setText(playerList.get(i).score);
-//                    break;
-//                case 1: P2Name.setText(playerList.get(i).name);
-//                        P2Score.setText(playerList.get(i).score);
-//                    break;
-//                case 2: P3Name.setText(playerList.get(i).name);
-//                        P3Score.setText(playerList.get(i).score);
-//                    break;
-//                case 3: P4Name.setText(playerList.get(i).name);
-//                        P4Score.setText(playerList.get(i).score);
-//                    break;
-//                case 4: P5Name.setText(playerList.get(i).name);
-//                        P5Score.setText(playerList.get(i).score);
-//                    break;
-//                case 5: P6Name.setText(playerList.get(i).name);
-//                        P6Score.setText(playerList.get(i).score);
-//                    break;
-//
-//            }
-//
-//        }
+        for (int i =0; i<playerList.size(); i++){
+            switch (i){
+                case 0: P1Name.setText(playerList.get(i).name);
+                        P1Score.setText(playerList.get(i).score);
+                    break;
+                case 1: P2Name.setText(playerList.get(i).name);
+                        P2Score.setText(playerList.get(i).score);
+                    break;
+                case 2: P3Name.setText(playerList.get(i).name);
+                        P3Score.setText(playerList.get(i).score);
+                    break;
+                case 3: P4Name.setText(playerList.get(i).name);
+                        P4Score.setText(playerList.get(i).score);
+                    break;
+                case 4: P5Name.setText(playerList.get(i).name);
+                        P5Score.setText(playerList.get(i).score);
+                    break;
+                case 5: P6Name.setText(playerList.get(i).name);
+                        P6Score.setText(playerList.get(i).score);
+                    break;
+
+            }
+
+        }
 
     }
 
